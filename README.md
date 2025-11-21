@@ -1,59 +1,126 @@
-# MicroserviceGridShopFrontend
+# 🛍️ MicroserviceGridShopFrontend 🅰️
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
+**MicroserviceGridShopFrontend** is the frontend application of the **Microservice Grid** ecosystem.  
+This Angular-based client communicates with the API Gateway and backend microservices to deliver a modular and scalable shopping interface.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Features
 
+- Product catalog fetched from **Product Service**
+- Inventory availability from **Inventory Service**
+- Order creation through **Order Service**
+- Secure integration via **API Gateway**
+- Angular 20 standalone architecture
+- Modular structure prepared for future expansion (Cart, Auth, Payments, Admin Panel)
+
+---
+
+## 🛠️ Tech Stack
+
+- **Angular 20**
+- **TypeScript**
+- **RxJS**
+- **Angular Router**
+- **SCSS**
+- **REST communication through API Gateway**
+- **Docker-ready production build**
+
+---
+
+## 📦 Project Structure
+```yml
+  src/
+  ├── app/
+  │ ├── core/
+  │ ├── shared/
+  │ ├── features/
+  │ │ ├── products/
+  │ │ ├── orders/
+  │ │ └── inventory/
+  │ └── app.routes.ts
+  ├── assets/
+  └── environments/
+```
+
+---
+
+## ⚙️ Development Setup
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+2. Start the development server
 ```bash
 ng serve
 ```
+Open in browser:
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+http://localhost:4200/
+Hot-reload works automatically.
 
-## Code scaffolding
+## 🧱 Production Build
+```bash
+ng build --configuration production
+```
+The build output will be generated inside the:
+```bash
+dist/microservice-grid-shop-frontend/
+```
+You can serve it using Nginx, Docker, or any static hosting.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
+## 🧪 Code Scaffolding
+Generate new components:
 ```bash
 ng generate component component-name
 ```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+View all available schematics:
 ```bash
 ng generate --help
 ```
 
-## Building
+---
 
-To build the project run:
+## 🔌 API Integration
+All backend communication goes through the API Gateway:
 
-```bash
-ng build
+Endpoint	Description
+/api/v1/products	Product catalog
+/api/v1/inventory	Inventory check
+/api/v1/order	Create order
+
+Environment config:
+``` bash
+src/environments/environment.ts
 ```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+## 🧰 Docker Build (optional)
+``` bash
+docker build -t microservice-grid-frontend .
+docker run -p 4200:80 microservice-grid-frontend
 ```
+---
 
-## Running end-to-end tests
+## 🔮 Planned Features
+ - Keycloak Authentication (Login / Register)
 
-For end-to-end (e2e) testing, run:
+ - User profile & session handling
 
-```bash
-ng e2e
-```
+ - Shopping cart & checkout page
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+ - Payment interaction via Pay Service
 
-## Additional Resources
+ - Admin Dashboard (Products, Inventory, Orders)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ - Weather & Currency integration widgets
+
+---
+
+## 👤 Author
+Andrii Kulynch
+Part of the Microservice Grid distributed system.
