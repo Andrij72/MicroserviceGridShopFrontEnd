@@ -1,0 +1,16 @@
+.cart-wrapper { padding: 20px; }
+.cart-list { margin-top: 20px; }
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.cart-item img { width: 80px; height: 80px; object-fit: cover; }
+.total { margin-top: 20px; font-weight: bold; font-size: 18px; }
+button { background: #1976d2; color: white; padding: 6px 12px; border-radius: 5px; border: none; cursor: pointer; }
+.clear { background: #c62828; }

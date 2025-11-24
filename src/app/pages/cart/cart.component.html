@@ -1,0 +1,23 @@
+<div class="cart-wrapper">
+  <h2>Your Cart</h2>
+
+  <div *ngIf="cart.cart().length === 0">
+    Cart is empty
+  </div>
+
+  <div class="cart-list" *ngIf="cart.cart().length > 0">
+    <div class="cart-item" *ngFor="let item of cart.cart()">
+      <img [src]="item.image" [alt]="item.name">
+      <div class="info">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.price }} € × {{ item.quantity }}</p>
+      </div>
+      <button (click)="remove(item.id)">Remove</button>
+    </div>
+  </div>
+
+  <div class="total" *ngIf="cart.cart().length > 0">
+    <h3>Total: {{ total }} €</h3>
+    <button class="clear" (click)="clear()">Clear Cart</button>
+  </div>
+</div>

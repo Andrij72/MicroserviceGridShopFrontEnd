@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
   templateUrl: './home.html',
-  styleUrl: './home.scss',
+  styleUrls: ['./home.scss']
 })
 export class Home {
-
+  readonly welcomeMessage = signal('Welcome to MicroserviceGridShop!');
 }
+

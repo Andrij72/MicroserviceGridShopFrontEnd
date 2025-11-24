@@ -9,7 +9,7 @@ This Angular-based client communicates with the API Gateway and backend microser
 
 - Product catalog fetched from **Product Service**
 - Inventory availability from **Inventory Service**
-- Order creation through **Order Service**
+- OrderService creation through **OrderService Service**
 - Secure integration via **API Gateway**
 - Angular 20 standalone architecture
 - Modular structure prepared for future expansion (Cart, Auth, Payments, Admin Panel)
