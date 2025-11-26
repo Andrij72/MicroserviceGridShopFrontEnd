@@ -14,7 +14,7 @@ export class CartService {
 
   addToCart(product: Omit<CartItem, 'quantity'>) {
     const items = this.cart();
-    const existing = items.find(item => item.id === product.id);
+    const existing = items.find(p => p.id === product.id);
 
     if (existing) {
       existing.quantity++;
