@@ -20,10 +20,15 @@ export class Home {
 
   isAuthenticated = toSignal(
     this.oidcService.isAuthenticated$.pipe(map(d => d.isAuthenticated)),
-    { initialValue: false } // для тесту постав true
+    { initialValue: false }
   );
 
   cartCount = computed(() =>
     this.cartService.cart().reduce((sum, item) => sum + item.quantity, 0)
   );
+
+  start() {
+    this.oidcService.authorize();
+  }
+
 }

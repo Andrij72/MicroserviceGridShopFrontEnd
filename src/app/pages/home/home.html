@@ -3,7 +3,9 @@
   <p>Discover the latest products of 2025.</p>
 
   <div *ngIf="!isAuthenticated()">
-    <button routerLink="/register" class="btn-primary">Register to Start</button>
+    <button  class="btn-primary" (click)="start()">
+      Log or Register to Start →
+    </button>
   </div>
 
   <div *ngIf="isAuthenticated()">

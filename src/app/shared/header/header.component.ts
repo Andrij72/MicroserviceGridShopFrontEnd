@@ -1,10 +1,8 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CartService } from '../../core/cart.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
-import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -17,22 +15,36 @@ export class HeaderComponent {
   private readonly oidcService = inject(OidcSecurityService);
   private readonly cartService = inject(CartService);
 
-  isAuthenticated = toSignal(
-    this.oidcService.isAuthenticated$.pipe(map(d => d.isAuthenticated)),
-    { initialValue: false } // для тесту можна true
-  );
-
-  username = toSignal(
-    this.oidcService.userData$.pipe(
-      map(d => d.userData?.preferred_username || '')
-    ),
-    { initialValue: '' }
-  );
+  isAuthenticated = signal(false);
+  username = signal('');
+  roles = signal<string[]>([]);
 
   cartCount = computed(() =>
     this.cartService.cart().reduce((sum, item) => sum + item.quantity, 0)
   );
 
+  constructor() {
+    this.oidcService.isAuthenticated$.subscribe(({ isAuthenticated }) => {
+      this.isAuthenticated.set(isAuthenticated);
+    });
+
+    this.oidcService.userData$.subscribe((d) => {
+      const data = d.userData;
+      if (data) {
+        this.username.set(data.given_name || '');
+        this.roles.set(data.realm_access?.roles || []);
+      }
+    });
+  }
+
   login() { this.oidcService.authorize(); }
   logout() { this.oidcService.logoff().subscribe(); }
+
+  isAdmin() {
+    return this.roles().includes('ADMIN');
+  }
+
+  showCart() {
+    return this.cartCount() > 0;
+  }
 }

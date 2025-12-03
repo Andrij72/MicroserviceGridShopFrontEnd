@@ -3,15 +3,16 @@
 
   <nav class="nav-links">
     <a routerLink="/products">Products</a>
-    <a routerLink="/cart">
+    <a *ngIf="showCart()" routerLink="/cart">
       Cart ({{ cartCount() }})
     </a>
+    <a *ngIf="isAuthenticated() && !isAdmin()" routerLink="/orders">Orders</a>
+    <a *ngIf="isAuthenticated() && isAdmin()" routerLink="/clients">Clients</a>
   </nav>
 
   <div class="user-info">
     <span *ngIf="isAuthenticated()">Hello, {{ username() }}</span>
     <button *ngIf="!isAuthenticated()" (click)="login()">Login</button>
-    <button *ngIf="!isAuthenticated()" routerLink="/register">Register</button>
     <button *ngIf="isAuthenticated()" (click)="logout()">Logout</button>
   </div>
 </header>

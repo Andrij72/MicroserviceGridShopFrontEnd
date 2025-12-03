@@ -6,9 +6,9 @@ import { AuthModule } from 'angular-auth-oidc-client';
 
 const authProviders = AuthModule.forRoot({
   config: {
-    authority: 'http://localhost:8181/realms/microservice-grid',
-    clientId: 'angular-frontend',
-    redirectUrl: window.location.origin,
+    authority: 'http://localhost:8181/realms/MicroServicesGrid-realm',
+    clientId: 'angular-client',
+    redirectUrl: window.location.origin+ '/products',
     postLogoutRedirectUri: window.location.origin,
     scope: 'openid profile email',
     responseType: 'code',
@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes),
     provideHttpClient(withInterceptorsFromDi()),
-    ...authProviders  // розпаковуємо масив
+    ...authProviders
   ]
 };
 
