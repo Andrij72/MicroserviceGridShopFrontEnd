@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CartService} from '../../core/cart.service';
+import {CartService} from '../../core/services/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,7 +15,7 @@ export class CartComponent {
 
   }
 
-  remove(id: number) {
+  remove(id: string) {
     this.cart.removeItem(id);
   }
 

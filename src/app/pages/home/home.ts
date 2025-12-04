@@ -1,9 +1,9 @@
 import { Component, inject, computed } from '@angular/core';
-import { CartService } from '../../core/cart.service';
+import { CartService } from '../../core/services/cart.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { HeaderComponent } from '../../shared/header/header.component';
+import { HeaderComponent } from '../../core/header/header.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

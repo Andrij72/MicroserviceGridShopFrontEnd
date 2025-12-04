@@ -1,5 +1,5 @@
 import { Component, inject, computed, signal } from '@angular/core';
-import { CartService } from '../../core/cart.service';
+import { CartService } from '../services/cart.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { CommonModule } from '@angular/common';
 import {RouterLink} from '@angular/router';

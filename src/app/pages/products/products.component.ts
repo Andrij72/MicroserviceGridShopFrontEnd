@@ -1,28 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../../core/cart.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { ProductService } from '../../core/services/product.service';
+import { Product } from '../../core/model/product';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { CartService } from '../../core/services/cart.service';
+import {CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-products',
-
   templateUrl: './products.component.html',
   standalone: true,
-  styleUrls: ['./products.component.scss'],
-  imports: [CommonModule]
+  imports: [
+    CurrencyPipe, CommonModule
+  ],
+  styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit {
+  private productService = inject(ProductService);
+  private oidcService = inject(OidcSecurityService);
+  private cartService = inject(CartService);
 
-  products = [
-    { id: 1, name: 'iPhone 15', price: 1500, image: 'https://via.placeholder.com/150?text=iPhone+15' },
-    { id: 2, name: 'Pixel 8', price: 900, image: 'https://via.placeholder.com/150?text=Pixel+8' },
-    { id: 3, name: 'Samsung S23', price: 1100, image: 'https://via.placeholder.com/150?text=Samsung+S23' },
-    { id: 4, name: 'Xiaomi 14', price: 800, image: 'https://via.placeholder.com/150?text=Xiaomi+14' }
-  ];
+  products: Product[] = [];
 
-  constructor(private cart: CartService) {}
+  roles = toSignal(
+    this.oidcService.userData$.pipe(
+      map(d => d.userData?.realm_access?.roles || [])
+    ),
+    { initialValue: [] as string[] }
+  );
 
-  addToCart(product: any) {
-    this.cart.addToCart(product);
-    console.log('Added:', product.name);
+  isAdmin = computed(() => this.roles().includes('ADMIN'));
+
+  ngOnInit(): void {
+    this.productService.getAll().subscribe({
+      next: (products: Product[]) => {
+        this.products = products;
+        console.log('Products loaded:', products);
+      },
+      error: (err: any) => console.error(err)
+    });
+  }
+
+  addToCart(product: Product) {
+    this.cartService.addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: 'assets/images/placeholder.jpg'
+    });
+    console.log('Added to cart:', product);
+  }
+
+
+  editProduct(product: Product) {
+    if (this.isAdmin()) {
+      console.log('Editing product:', product);
+      // todo edit form of product
+    } else {
+      console.warn('Access denied. Not an admin.');
+    }
   }
 }

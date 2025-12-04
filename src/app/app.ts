@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/header/header.component';
+import { HeaderComponent } from './core/header/header.component';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { filter, first, delay } from 'rxjs/operators';
 
