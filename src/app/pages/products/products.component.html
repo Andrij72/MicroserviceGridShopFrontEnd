@@ -3,11 +3,10 @@
     <h3>{{ product.name }}</h3>
     <p>{{ product.description }}</p>
     <p>Price: {{ product.price | currency:'EUR' }}</p>
+    <img [src]="product.image || '/images/placeholder.jpg'"  alt=""/>
 
-    <!-- Edit button only for admin -->
     <button *ngIf="isAdmin()" (click)="editProduct(product)">Edit</button>
 
-    <!-- Add to cart button for everyone -->
     <button (click)="addToCart(product)">Add to Cart</button>
   </div>
 </div>
