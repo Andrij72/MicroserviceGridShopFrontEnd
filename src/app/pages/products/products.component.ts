@@ -12,10 +12,7 @@ import { CurrencyPipe } from '@angular/common';
   selector: 'app-products',
   templateUrl: './products.component.html',
   standalone: true,
-  imports: [
-    CurrencyPipe,
-    CommonModule
-  ],
+  imports: [CommonModule],
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {

@@ -1,12 +1,13 @@
-<div class="products">
-  <div *ngFor="let product of products" class="product-card">
-    <h3>{{ product.name }}</h3>
-    <p>{{ product.description }}</p>
-    <p>Price: {{ product.price | currency:'EUR' }}</p>
-    <img [src]="product.image || '/images/placeholder.jpg'"  alt=""/>
-
-    <button *ngIf="isAdmin()" (click)="editProduct(product)">Edit</button>
-
-    <button (click)="addToCart(product)">Add to Cart</button>
+<div class="products-container">
+  <div class="product-card" *ngFor="let product of products">
+    <img [src]="product.image || 'images/placeholder.jpg'" alt="{{product.name}}" class="product-image">
+    <div class="product-details">
+      <h4 class="product-name">{{ product.name }}</h4>
+      <p class="product-description">{{ product.description }}</p>
+      <div class="product-footer">
+        <span class="product-price">{{ product.price | currency:'USD':'symbol' }}</span>
+        <button (click)="addToCart(product)" class="add-to-cart">Add to cart</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,34 +1,21 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, catchError, switchMap, throwError } from 'rxjs';
+import { HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { Observable, switchMap } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  constructor(private oidcService: OidcSecurityService) {}
+export const authInterceptor = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
+  const oidcService = inject(OidcSecurityService);
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.oidcService.getAccessToken().pipe(
-      switchMap(token => {
-        console.log('Interceptor token:', token);
-        const authReq = token ? req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) : req;
+  return oidcService.getAccessToken().pipe(
 
-        return next.handle(authReq).pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
-              console.warn('401 Unauthorized – redirect to Keycloak');
-              this.oidcService.authorize();
-            }
-            return throwError(() => error);
-          })
-        );
-      })
-    );
-  }
-}
+    switchMap(token => {
+      console.log('Token in interceptor before clone available:', token);
+      const authReq = token ?
+        req.clone({ setHeaders: { Authorization: `Bearer ${token}` } }) :
+
+        req;console.log('Headers after clone:', authReq.headers.keys());
+      console.log('Authorization header after clone:', authReq.headers.get('Authorization'));
+      return next(authReq);
+    })
+  );
+};
