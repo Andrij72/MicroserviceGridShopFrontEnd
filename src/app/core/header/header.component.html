@@ -3,11 +3,14 @@
 
   <nav class="nav-links">
     <a routerLink="/products">Products</a>
-    <a *ngIf="showCart()" routerLink="/cart">
-      Cart ({{ cartCount() }})
-    </a>
     <a *ngIf="isAuthenticated() && !isAdmin()" routerLink="/orders">Orders</a>
-    <a *ngIf="isAuthenticated() && isAdmin()" routerLink="/clients">Clients</a>
+    <a *ngIf="isAuthenticated() && isAdmin()" routerLink="/admin">Admin</a>
+
+    <!-- Cart Icon -->
+    <a routerLink="/cart" class="cart-icon">
+      <span class="material-icons">shopping_cart</span>
+      <span class="badge" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+    </a>
   </nav>
 
   <div class="user-info">

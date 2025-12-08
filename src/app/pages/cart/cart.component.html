@@ -1,22 +1,74 @@
-<div class="cart-wrapper">
-<div *ngIf="cart.cart().length === 0">
-  Cart is empty
-</div>
+<h2>🛒 Your Cart</h2>
 
+<table *ngIf="cartService.cart().length > 0; else empty" class="cart-table" role="table" aria-label="Shopping cart">
+  <thead>
+  <tr>
+    <th scope="col">Product</th>
+    <th scope="col">Price</th>
+    <th scope="col">Qty</th>
+    <th scope="col">Total</th>
+    <th scope="col" aria-hidden="true"></th>
+  </tr>
+  </thead>
 
-<div class="cart-list" *ngIf="cart.cart().length > 0">
-  <div class="cart-item" *ngFor="let item of cart.cart()">
-    <img [src]="item.image" [alt]="item.name">
-    <div class="info">
-      <h3>{{ item.name }}</h3>
-      <p>{{ item.price }} € × {{ item.quantity }}</p>
-    </div>
-    <button (click)="remove(item.id)">Remove</button>
+  <tbody>
+  <tr *ngFor="let item of cartService.cart()" role="row">
+    <td role="cell">{{ item.name }}</td>
+    <td role="cell">{{ item.price | currency:'EUR' }}</td>
+    <td role="cell" class="qty-cell">
+      <button
+        type="button"
+        class="icon-btn"
+        title="Decrease quantity"
+        aria-label="Decrease quantity"
+        (click)="cartService.decrease(item)">
+        −
+      </button>
+
+      <span class="qty">{{ item.quantity }}</span>
+
+      <button
+        type="button"
+        class="icon-btn"
+        title="Increase quantity"
+        aria-label="Increase quantity"
+        (click)="cartService.increase(item)">
+        +
+      </button>
+    </td>
+    <td role="cell">({{ item.price * item.quantity | currency:'EUR' }})</td>
+    <td role="cell">
+      <button
+        type="button"
+        class="danger"
+        title="Remove item"
+        aria-label="Remove item"
+        (click)="cartService.removeItem(item.productId)">
+        ✕
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="summary" *ngIf="cartService.cart().length">
+  <div>
+    <strong>Total:</strong>
+    <span class="total">({{ cartService.total() | currency:'EUR' }})</span>
+  </div>
+
+  <div class="actions">
+    <button
+      class="primary"
+      [disabled]="isCreating"
+      aria-disabled="{{ isCreating }}"
+      title="Create order"
+      (click)="createOrder()">
+      {{ isCreating ? 'Creating...' : 'Create Order' }}
+    </button>
   </div>
 </div>
 
-<div class="total" *ngIf="cart.cart().length > 0">
-  <h3>Total: {{ total }} €</h3>
-  <button class="clear" (click)="clear()">Clear Cart</button>
-</div>
-</div>
+<ng-template #empty>
+  <p>Cart is empty 🤷‍♂️</p>
+</ng-template>

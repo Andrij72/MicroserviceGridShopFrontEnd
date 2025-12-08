@@ -1,8 +1,8 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +28,7 @@ export class HeaderComponent {
       this.isAuthenticated.set(isAuthenticated);
     });
 
-    this.oidcService.userData$.subscribe((d) => {
+    this.oidcService.userData$.subscribe(d => {
       const data = d.userData;
       if (data) {
         this.username.set(data.given_name || '');
@@ -39,12 +39,5 @@ export class HeaderComponent {
 
   login() { this.oidcService.authorize(); }
   logout() { this.oidcService.logoff().subscribe(); }
-
-  isAdmin() {
-    return this.roles().includes('ADMIN');
-  }
-
-  showCart() {
-    return this.cartCount() > 0;
-  }
+  isAdmin() { return this.roles().includes('ADMIN'); }
 }

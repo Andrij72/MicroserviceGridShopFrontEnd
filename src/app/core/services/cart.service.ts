@@ -1,4 +1,5 @@
 import { Injectable, signal } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface CartItem {
   id: string;
@@ -11,6 +12,21 @@ export interface CartItem {
 @Injectable({ providedIn: 'root' })
 export class CartService {
   cart = signal<CartItem[]>([]);
+
+  private isOpenSubject = new BehaviorSubject<boolean>(false);
+  isOpen$ = this.isOpenSubject.asObservable();
+
+  open() {
+    this.isOpenSubject.next(true);
+  }
+
+  close() {
+    this.isOpenSubject.next(false);
+  }
+
+  toggle() {
+    this.isOpenSubject.next(!this.isOpenSubject.value);
+  }
 
   addToCart(product: Omit<CartItem, 'quantity'>) {
     const items = this.cart();
@@ -28,7 +44,30 @@ export class CartService {
     this.cart.set(this.cart().filter(item => item.id !== id));
   }
 
+  increase(item: CartItem) {
+    item.quantity++;
+    this.cart.set([...this.cart()]);
+  }
+
+  decrease(item: CartItem) {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.cart.set([...this.cart()]);
+    } else {
+      this.removeItem(item.id);
+    }
+  }
+
   clearCart() {
     this.cart.set([]);
   }
+
+  cartTotal() {
+    return this.cart().reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
+
+  cartCount() {
+    return this.cart().reduce((sum, item) => sum + item.quantity, 0);
+  }
+
 }
