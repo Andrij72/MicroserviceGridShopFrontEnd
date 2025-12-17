@@ -1,0 +1,17 @@
+<h2>📦 Your Orders</h2>
+
+<div *ngIf="orders$ | async as orders; else loading">
+  <div *ngFor="let o of orders">
+    <p>Order #{{ o.userId }} — {{ o.total | currency:'EUR' }} — {{ o.createdAt }}</p>
+    <ul>
+      <li *ngFor="let i of o.items">
+        {{ i.product.name}} x {{ i.quantity }} — {{ i.product.price | currency:'EUR' }}
+      </li>
+    </ul>
+    <hr/>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p>Loading orders...</p>
+</ng-template>

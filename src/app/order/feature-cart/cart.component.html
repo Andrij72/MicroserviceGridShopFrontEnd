@@ -1,0 +1,40 @@
+<div class="cart-container">
+  <h2>🛒 Your Cart</h2>
+
+  <table *ngIf="cartService.cart().length > 0; else emptyCart">
+    <thead>
+    <tr>
+      <th>SKU</th>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of cartService.cart()">
+      <td>{{ item.product.sku }}</td>
+      <td class="product-cell">
+        <img [src]="item.product.image || 'images/placeholder.jpg'" alt="{{ item.product.name }}">
+        <span>{{ item.product.name }}</span>
+      </td>
+      <td>{{ item.product.price | currency:'EUR' }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.product.price * item.quantity | currency:'EUR' }}</td>
+      <td>
+        <button class="btn btn-remove" (click)="cartService.remove(item)">Remove</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #emptyCart>
+    <p>Your cart is empty 😢</p>
+  </ng-template>
+
+  <div class="cart-actions">
+    <p class="total"><strong>Total: {{ cartService.total() | currency:'EUR' }}</strong></p>
+    <button class="btn btn-create" (click)="createOrder()">Create Order</button>
+  </div>
+</div>

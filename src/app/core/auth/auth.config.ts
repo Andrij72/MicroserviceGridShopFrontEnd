@@ -1,15 +1,14 @@
-import { PassedInitialConfig } from 'angular-auth-oidc-client';
+import { OpenIdConfiguration } from 'angular-auth-oidc-client';
 
-export const authConfig: PassedInitialConfig = {
-  config: {
-    authority: 'http://localhost:8181/realms/spring-microservices-security-realm',
-    redirectUrl: window.location.origin,
-    postLogoutRedirectUri: window.location.origin,
-    clientId: 'angular-client',
-    scope: 'openid profile offline_access',
-    responseType: 'code',
-    silentRenew: true,
-    useRefreshToken: true,
-    renewTimeBeforeTokenExpiresInSeconds: 30,
-  }
-};
+export const authConfig: OpenIdConfiguration = {
+
+  authority: 'http://localhost:8181/realms/MicroServicesGrid-realm',
+  clientId: 'angular-client',
+  redirectUrl: window.location.origin + '/products',
+  postLogoutRedirectUri: window.location.origin,
+  scope: 'openid profile email',
+  responseType: 'code',
+  silentRenew: true,
+  useRefreshToken: true,
+  renewTimeBeforeTokenExpiresInSeconds: 30,
+}

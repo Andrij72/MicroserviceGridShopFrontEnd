@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  padding: 16px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+div.order {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
+
+  p {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 16px;
+
+    li {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin-top: 12px;
+  }
+}
+
+p.loading {
+  font-style: italic;
+  color: #666;
+}

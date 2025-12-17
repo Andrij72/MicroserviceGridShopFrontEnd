@@ -1,8 +1,8 @@
-import { Component, inject, computed, signal } from '@angular/core';
-import { CartService } from '../services/cart.service';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import {RouterLink} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {Component, computed, inject, signal} from '@angular/core';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {CartService} from '../../order/data-access/cart.service';
 
 @Component({
   selector: 'app-header',

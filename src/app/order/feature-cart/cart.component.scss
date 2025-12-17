@@ -1,0 +1,83 @@
+@use "sass:color";
+
+$btn-color: #007bff;
+$btn-remove-color: #dc3545;
+$muted-bg: #f7f7f7;
+$border: #e6e6e6;
+
+.cart-container {
+  padding: 16px;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+
+    th, td {
+      padding: 10px;
+      border: 1px solid $border;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: $muted-bg;
+      font-weight: 600;
+    }
+
+    .product-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+    }
+
+    tbody tr:hover {
+      background-color: color.scale($muted-bg, $lightness: -3%);
+    }
+  }
+
+  .cart-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .total {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    transition: background-color 0.15s ease, transform 0.06s ease;
+
+    &.btn-create {
+      background-color: $btn-color;
+
+      &:hover {
+        background-color: color.scale($btn-color, $lightness: -8%);
+      }
+    }
+
+    &.btn-remove {
+      background-color: $btn-remove-color;
+
+      &:hover {
+        background-color: color.scale($btn-remove-color, $lightness: -8%);
+      }
+    }
+  }
+}
