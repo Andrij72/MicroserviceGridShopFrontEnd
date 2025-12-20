@@ -18,8 +18,9 @@ export const appConfig: ApplicationConfig = {
         scope: 'openid profile email',
         responseType: 'code',
         silentRenew: true,
-        useRefreshToken: true
+        useRefreshToken: true,
+        // secureRoutes: ['http://localhost:9000/api']
       },
-    }).providers ?? [],
+    }).providers ?? []
   ],
 };
