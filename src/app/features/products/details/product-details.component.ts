@@ -2,9 +2,9 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../data-access/product.service';
-import { CartService } from '../../order/data-access/cart.service';
 import { Product } from '../model/product.model';
 import { Observable, switchMap } from 'rxjs';
+import {CartService} from '../../cart/data-access/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -26,11 +26,9 @@ export class ProductDetailsComponent {
   );
 
   addToCart(product: Product) {
-    this.cartService.add(product);
+    this.cartService.addProduct(product);
 
     this.addedMessage.set(`${product.name} added to cart 🛒`);
-
-    // через 2 секунди прибираємо повідомлення
     setTimeout(() => this.addedMessage.set(''), 2000);
   }
 }

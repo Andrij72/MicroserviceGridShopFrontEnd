@@ -1,12 +1,20 @@
 @use "sass:color";
 
-$btn-color: #007bff;
-$btn-remove-color: #dc3545;
-$muted-bg: #f7f7f7;
-$border: #e6e6e6;
+$btn-color: #007bff;        // синя кнопка для оформлення
+$btn-remove-color: #dc3545; // червона кнопка для видалення
+$muted-bg: #f7f7f7;         // світлий фон для заголовків таблиці
+$border: #e6e6e6;           // сірі бордери
 
 .cart-container {
   padding: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
 
   table {
     width: 100%;
@@ -48,11 +56,11 @@ $border: #e6e6e6;
     justify-content: space-between;
     align-items: center;
     margin-top: 12px;
-  }
 
-  .total {
-    font-weight: 700;
-    font-size: 1.1rem;
+    .total {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
   }
 
   .btn {

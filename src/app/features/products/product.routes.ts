@@ -9,14 +9,12 @@ export const productRoutes: Routes = [
       {
         path: '',
         loadComponent: () =>
-          import('./feature-list/product-list.component')
-            .then(m => m.ProductListComponent)
+          import('./list/product-list.component').then(m => m.ProductListComponent)
       },
       {
         path: ':sku',
         loadComponent: () =>
-          import('./feature-details/product-details.component')
-            .then(m => m.ProductDetailsComponent)
+          import('./details/product-details.component').then(m => m.ProductDetailsComponent)
       }
     ]
   }

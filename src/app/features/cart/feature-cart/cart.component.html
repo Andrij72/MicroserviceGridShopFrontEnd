@@ -1,0 +1,42 @@
+<div class="cart-container">
+  <h2>Your Cart</h2>
+
+  <table *ngIf="cart().length > 0; else empty">
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Line Total</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of cart()">
+      <td class="product-cell">
+        <img [src]="item.product.image || '/images/placeholder.jpg'"
+             alt="{{ item.product.name }}">
+        {{ item.product.name }}
+      </td>
+      <td>{{ item.product.price | currency:'EUR' }}</td>
+      <td>
+        <input type="number" min="1" [value]="item.quantity"
+               (change)="updateQuantity(item.product.sku, $any($event.target).value)">
+      </td>
+      <td>{{ lineTotal(item) | currency:'EUR' }}</td>
+      <td>
+        <button class="btn btn-remove" (click)="removeItem(item.product.sku)">Remove</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #empty>
+    <p>Your cart is empty.</p>
+  </ng-template>
+
+  <div class="cart-actions" *ngIf="cart().length > 0">
+    <p class="total">Total: {{ total() | currency:'EUR' }}</p>
+    <button class="btn btn-create" (click)="checkout()">Place Order</button>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-import { CartItem } from './cart-item.model';
+import { CartItem } from '../../cart/model/cart-item.model';
 
 export interface OrderCreateRequest {
   userId: string;

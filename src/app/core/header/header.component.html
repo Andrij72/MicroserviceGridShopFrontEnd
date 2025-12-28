@@ -1,20 +1,29 @@
 <header class="app-header">
-  <div class="logo" routerLink="/home">🛒 MicroserviceGrid</div>
+  <div class="logo" routerLink="/home">🛒 {{ title() }}</div>
 
-  <nav class="nav-links">
-    <a routerLink="/products">Products</a>
-    <a *ngIf="isAuthenticated() && !isAdmin()" routerLink="/orders">Orders</a>
-    <a *ngIf="isAuthenticated() && isAdmin()" routerLink="/admin">Admin</a>
-
-    <!-- Cart Icon -->
-    <a routerLink="/cart" class="cart-icon">
+  <nav class="nav-links" *ngIf="rolesReady()">
+    <!-- CLIENT LINKS -->
+    <a *ngIf="isClient()" routerLink="/products">Products</a>
+    <a *ngIf="isClient()" routerLink="/orders/my">My Orders</a>
+    <a *ngIf="isClient()" routerLink="/cart" class="cart-icon">
       <span class="material-icons">shopping_cart</span>
       <span class="badge" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
     </a>
+
+    <!-- ADMIN LINKS -->
+    <a *ngIf="isAdmin()" routerLink="/admin/products-management">Products Management</a>
+    <a *ngIf="isAdmin()" routerLink="/admin/orders-management">Orders Management</a>
+    <a *ngIf="isAdmin()" routerLink="/admin/users-management">Users Management</a>
   </nav>
 
+  <!-- USER INFO -->
   <div class="user-info">
-    <span *ngIf="isAuthenticated()">Hello, {{ username() }}</span>
+    <span *ngIf="isAuthenticated()">
+      Hello, {{ username() }}
+      <span *ngIf="isAdmin()">(ADMIN)</span>
+      <span *ngIf="isClient() && !isAdmin()">(CLIENT)</span>
+    </span>
+
     <button *ngIf="!isAuthenticated()" (click)="login()">Login</button>
     <button *ngIf="isAuthenticated()" (click)="logout()">Logout</button>
   </div>

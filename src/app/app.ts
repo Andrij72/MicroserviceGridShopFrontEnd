@@ -13,7 +13,6 @@ import { filter, first, delay } from 'rxjs/operators';
   styleUrls: ['./app.scss']
 })
 export class App {
-  readonly title = signal('MicroserviceGridShopFrontend');
   readonly isAdmin = signal(false);
 
   private readonly oidcService = inject(OidcSecurityService);

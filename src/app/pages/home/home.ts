@@ -1,10 +1,10 @@
 import {Component, computed, inject} from '@angular/core';
-import {CartService} from '../../order/data-access/cart.service';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {map} from 'rxjs';
 import {RouterLink} from '@angular/router';
 import {CommonModule} from '@angular/common';
+import {CartService} from '../../features/cart/data-access/cart.service';
 
 @Component({
   selector: 'app-home',
