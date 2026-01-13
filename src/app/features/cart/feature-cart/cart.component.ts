@@ -1,13 +1,13 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import { CartService } from '../data-access/cart.service';
-import { OrderService } from '../../orders/data-access/order.service';
+import {Component, inject} from '@angular/core';
+import {CommonModule, CurrencyPipe} from '@angular/common';
+import {CartService} from '../data-access/cart.service';
+import {OrderService} from '../../orders/data-access/order.service';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
   imports: [
-    CommonModule, // <- додати для *ngIf, *ngFor
+    CommonModule,
     CurrencyPipe
   ],
   templateUrl: './cart.component.html',
@@ -20,14 +20,22 @@ export class CartComponent {
   cart = this.cartService.cart;
   total = this.cartService.total;
 
+  public orderError: string | null = null;
+  orderSuccess: boolean = false;
+
   async checkout() {
     try {
       await this.orderService.createOrder(this.cart());
-      alert('Order created!');
+      this.orderSuccess = true;
+      this.orderError = null;
       this.cartService.clear();
-    } catch (e) {
-      console.error(e);
-      alert('Error creating order');
+    } catch (err: any) {
+      this.orderError = err?.message ?? 'Order creation failed';
+      this.orderSuccess = false;
+      setTimeout(() => {
+        this.orderError = null;
+      }, 10000);
+
     }
   }
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { OrderService } from '../data-access/order.service';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import {filter, map, switchMap} from 'rxjs/operators';
 import { Order } from '../model/order.model';
 
 @Component({
@@ -18,10 +18,7 @@ export class OrdersComponent {
   private oidcService = inject(OidcSecurityService);
 
   orders$: Observable<Order[]> = this.oidcService.userData$.pipe(
-    map(user => user?.userData.sub),
-    switchMap(userId => {
-      if (!userId) return of([] as Order[]);
-      return this.orderService.getOrdersByCurrentUser() as unknown as Observable<Order[]>;
-    })
+    filter(user => !!user),
+    switchMap(() => this.orderService.getOrdersByCurrentUser())
   );
 }

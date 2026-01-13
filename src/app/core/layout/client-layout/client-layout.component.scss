@@ -1,8 +1,15 @@
+/* Стилі для клієнтського лейауту */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .app-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: #0d6efd;
+  background-color: #0d6efd;
   color: white;
   padding: 0.75rem 2rem;
   display: flex;
@@ -13,7 +20,9 @@
     font-size: 1.3rem;
     font-weight: bold;
     cursor: pointer;
-    &:hover { transform: scale(1.06); }
+    &:hover {
+      transform: scale(1.06);
+    }
   }
 
   .nav-links {
@@ -26,14 +35,19 @@
       text-decoration: none;
       font-weight: 500;
       transition: 0.2s;
-      &:hover { opacity: 0.8; }
+      &:hover {
+        opacity: 0.8;
+      }
 
       &.cart-icon {
         position: relative;
         display: flex;
         align-items: center;
 
-        .material-icons { font-size: 28px; }
+        .material-icons {
+          font-size: 28px;
+        }
+
         .badge {
           position: absolute;
           top: -6px;
@@ -63,7 +77,21 @@
       cursor: pointer;
       font-weight: bold;
       transition: 0.2s;
-      &:hover { background: #e5e5e5; transform: translateY(-2px); }
+      &:hover {
+        background: #e5e5e5;
+        transform: translateY(-2px);
+      }
     }
   }
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
 }

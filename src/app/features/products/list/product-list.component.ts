@@ -32,8 +32,8 @@ export class ProductListComponent {
 
     this.productService.getAll().pipe(
       tap(products => {
-        console.log('Products from backend:', products);
-        this.products.set(products);
+        console.log('Products from backend:', products.content);
+        this.products.set(products.content);
         this.loading.set(false);
       }),
       catchError(err => {

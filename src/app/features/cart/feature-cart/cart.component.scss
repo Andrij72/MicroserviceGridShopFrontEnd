@@ -1,91 +1,82 @@
-@use "sass:color";
-
-$btn-color: #007bff;        // синя кнопка для оформлення
-$btn-remove-color: #dc3545; // червона кнопка для видалення
-$muted-bg: #f7f7f7;         // світлий фон для заголовків таблиці
-$border: #e6e6e6;           // сірі бордери
-
-.cart-container {
-  padding: 16px;
-  max-width: 900px;
+.cart-page {
+  max-width: 1100px;
   margin: 0 auto;
+  padding-bottom: 90px;
+}
 
-  h2 {
-    margin-bottom: 16px;
-    font-size: 1.5rem;
+.cart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.cart-item {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  background: #fafafa;
+
+  img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .title {
     font-weight: 600;
   }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 12px;
-
-    th, td {
-      padding: 10px;
-      border: 1px solid $border;
-      text-align: left;
-      vertical-align: middle;
-    }
-
-    th {
-      background-color: $muted-bg;
-      font-weight: 600;
-    }
-
-    .product-cell {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-        border-radius: 4px;
-      }
-    }
-
-    tbody tr:hover {
-      background-color: color.scale($muted-bg, $lightness: -3%);
-    }
-  }
-
-  .cart-actions {
+  .qty {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 12px;
 
-    .total {
-      font-weight: 700;
-      font-size: 1.1rem;
+    input {
+      width: 60px;
     }
   }
+}
 
-  .btn {
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    color: #fff;
-    transition: background-color 0.15s ease, transform 0.06s ease;
+.checkout-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
-    &.btn-create {
-      background-color: $btn-color;
+  background: white;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 
-      &:hover {
-        background-color: color.scale($btn-color, $lightness: -8%);
-      }
-    }
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  z-index: 1500;
 
-    &.btn-remove {
-      background-color: $btn-remove-color;
-
-      &:hover {
-        background-color: color.scale($btn-remove-color, $lightness: -8%);
-      }
-    }
+  .sum {
+    font-weight: 700;
   }
+}
+
+.btn {
+  background: #0d6efd;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+
+  &.btn-remove { background: #dc3545; }
+  &.btn-create { background: #198754; }
 }

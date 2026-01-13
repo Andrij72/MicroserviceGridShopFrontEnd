@@ -1,0 +1,50 @@
+<div class="product-form">
+  <h2>{{ sku ? 'Edit Product' : 'Create Product' }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+
+    <div class="form-group">
+      <label for="sku">SKU</label>
+      <input id="sku" type="text" formControlName="sku"  />
+      <div class="error" *ngIf="formControls.sku.invalid && formControls.sku.touched">
+        SKU is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" />
+      <div class="error" *ngIf="formControls.name.invalid && formControls.name.touched">
+        Name must be at least 3 characters.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input id="price" type="number" formControlName="price" />
+      <div class="error" *ngIf="formControls.price.invalid && formControls.price.touched">
+        Price must be greater than 0.
+      </div>
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label style="display: flex; align-items: center; gap: 0.5rem;">
+        <input type="checkbox" [checked]="formControls.enabled.value" disabled />
+        Enabled
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="loading">{{ sku ? 'Update' : 'Create' }}</button>
+      <button type="button" (click)="cancel()" [disabled]="loading">Cancel</button>
+    </div>
+
+    <div class="message success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="message error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </form>
+</div>

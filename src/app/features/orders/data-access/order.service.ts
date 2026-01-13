@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CartItem } from '../../cart/model/cart-item.model';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { firstValueFrom } from 'rxjs';
-import { Observable } from 'rxjs';
+import {Injectable, inject} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {CartItem} from '../../cart/model/cart-item.model';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {firstValueFrom} from 'rxjs';
+import {Observable} from 'rxjs';
 
 export interface UserDetails {
   email: string;
@@ -11,7 +11,7 @@ export interface UserDetails {
   lastName: string;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class OrderService {
   private http = inject(HttpClient);
   private oidc = inject(OidcSecurityService);
@@ -31,17 +31,26 @@ export class OrderService {
     const order = {
       items: items.map(i => ({
         sku: i.product.sku,
+        name: i.product.name,
         price: i.product.price,
         quantity: i.quantity
       })),
       userDetails: user
     };
 
-    console.log('Order payload:', order);
-    return firstValueFrom(this.http.post(this.apiUrl, order));
+    try {
+      console.log('Order payload:', order);
+      return await firstValueFrom(this.http.post(this.apiUrl, order));
+    } catch (error: any) {
+      if (error?.error?.message) {
+        throw new Error(error.error.message);
+      }
+      throw new Error('Order creation failed. Please try again.');
+    }
+
   }
 
   getOrdersByCurrentUser(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/current`);
+    return this.http.get(`${this.apiUrl}`);
   }
 }

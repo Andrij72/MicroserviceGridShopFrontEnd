@@ -1,0 +1,82 @@
+<div class="product-list">
+
+  <div class="list-header">
+    <h2>Products</h2>
+
+    <div class="header-actions">
+      <button class="btn danger" (click)="deleteSelected()" [disabled]="selectedSkus.size === 0">
+        Delete selected
+      </button>
+
+      <button class="btn primary" (click)="create()">
+        Create Product
+      </button>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>
+        <input type="checkbox"
+               [checked]="selectAll"
+               (change)="toggleAll($event.target.checked)" />
+      </th>
+      <th>SKU</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let product of products">
+      <td>
+        <input type="checkbox"
+               [checked]="selectedSkus.has(product.sku)"
+               (change)="toggleProduct(product.sku, $event.target.checked)" />
+      </td>
+
+      <td>{{ product.sku }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.price | number:'1.2-2' }}</td>
+
+      <td>
+        <span class="status" [ngClass]="product.enabled ? 'enabled' : 'disabled'">
+          {{ product.enabled ? 'Enabled' : 'Disabled' }}
+        </span>
+      </td>
+
+      <td class="actions">
+        <button class="btn small"
+                (click)="toggle(product)">
+          {{ product.enabled ? 'Disable' : 'Enable' }}
+        </button>
+
+        <button class="btn small primary"
+                (click)="edit(product)">
+          Edit
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <button class="btn small"
+            (click)="prev()"
+            [disabled]="page === 0">
+      Prev
+    </button>
+
+    <span>Page {{ page + 1 }} / {{ totalPages }}</span>
+
+    <button class="btn small"
+            (click)="next()"
+            [disabled]="page + 1 >= totalPages">
+      Next
+    </button>
+  </div>
+
+</div>

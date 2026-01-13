@@ -1,14 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './core/header/header.component';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
-import { filter, first, delay } from 'rxjs/operators';
+import {Component, inject, signal} from '@angular/core';
+import {Router, RouterOutlet} from '@angular/router';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {delay, filter, first} from 'rxjs/operators';
+import {HeaderComponent} from './core/layout/header/header.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
 })
@@ -47,11 +46,11 @@ export class App {
       if (roles.includes('ADMIN')) {
         this.isAdmin.set(true);
         console.log('User is ADMIN');
+        this.router.navigate(['/admin/products']).catch(err => console.error(err));
       } else {
-        console.log('User is NOT ADMIN');
+        console.log('User is CLIENT');
+        this.router.navigate(['/products']).catch(err => console.error(err));
       }
-
-      this.router.navigate(['/products']).catch(err => console.error(err));
     });
   }
 }

@@ -2,7 +2,7 @@ import { OpenIdConfiguration } from 'angular-auth-oidc-client';
 
 export const authConfig: OpenIdConfiguration = {
 
-  authority: 'http://localhost:8181/realms/MicroServicesGrid-realm',
+  authority: 'http://host.docker.internal:8181/realms/MicroServicesGrid-realm',
   clientId: 'angular-client',
   redirectUrl: window.location.origin + '/products',
   postLogoutRedirectUri: window.location.origin,
