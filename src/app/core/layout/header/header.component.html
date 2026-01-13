@@ -1,0 +1,24 @@
+<header class="app-header">
+  <div class="logo" routerLink="/home">
+    🛒 {{ title() }}
+  </div>
+
+  <nav class="nav-links">
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/orders/my" routerLinkActive="active">My Orders</a>
+    <a routerLink="/cart" class="cart-icon" routerLinkActive="active">
+      <span class="material-icons"> 🗑 </span>
+      <span class="badge" *ngIf="cartCount() > 0">{{ cartCount() }}</span>
+    </a>
+  </nav>
+
+  <div class="user-info">
+    <button *ngIf="!isAuthenticated()" (click)="login()">Login</button>
+    <ng-container *ngIf="isAuthenticated()">
+      <span>Hello, {{ username() }}</span>
+      <span *ngIf="isAdmin()"> (ADMIN) </span>
+      <span *ngIf="isClient() && !isAdmin()"> (CLIENT) </span>
+      <button (click)="logout()">Logout</button>
+    </ng-container>
+  </div>
+</header>

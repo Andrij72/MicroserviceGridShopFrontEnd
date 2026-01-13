@@ -1,0 +1,86 @@
+<div class="cart-page">
+
+  <div *ngIf="orderError" class="modal-backdrop" (click)="orderError=null">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header error">
+        <h3>Order error</h3>
+        <button class="close-btn" (click)="orderError=null">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p>{{ orderError }}</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" (click)="orderError=null">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="orderSuccess" class="modal-backdrop" (click)="orderSuccess=false">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header success">
+        <h3>Order created</h3>
+        <button class="close-btn" (click)="orderSuccess=false">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p>Your order was successfully created.</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn" (click)="orderSuccess=false">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <h2>Your Cart</h2>
+
+  <div class="cart-grid" *ngIf="cart().length > 0; else empty">
+
+    <div class="cart-item" *ngFor="let item of cart()">
+
+      <img
+        [src]="item.product.image || '/images/placeholder.jpg'"
+        alt="{{ item.product.name }}"
+      >
+
+      <div class="info">
+        <div class="title">{{ item.product.name }}</div>
+        <div class="price">{{ item.product.price | currency:'EUR' }}</div>
+
+        <div class="qty">
+          <input
+            type="number"
+            min="1"
+            [value]="item.quantity"
+            (change)="updateQuantity(item.product.sku, $any($event.target).value)"
+          >
+
+          <span class="line-total">
+            {{ lineTotal(item) | currency:'EUR' }}
+          </span>
+        </div>
+
+        <button class="btn btn-remove"
+                (click)="removeItem(item.product.sku)">
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <p>Your cart is empty.</p>
+  </ng-template>
+
+  <div class="checkout-bar" *ngIf="cart().length > 0">
+    <div class="sum">
+      Total: {{ total() | currency:'EUR' }}
+    </div>
+
+    <button class="btn btn-create" (click)="checkout()">
+      Create order
+    </button>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<h2>🛍 Products</h2>
+
+<!-- Loading -->
+<div *ngIf="loading()" class="loading">Loading products...</div>
+
+<!-- Error -->
+<p *ngIf="error()" class="error">{{ error() }}</p>
+
+<!-- Empty State -->
+<ng-container *ngIf="!loading() && !error() && products().length === 0">
+  <p>No products available</p>
+</ng-container>
+
+<!-- Cart Message -->
+<div *ngIf="cartMessage()" class="cart-message">
+  {{ cartMessage() }}
+</div>
+
+<!-- Product Grid -->
+<div class="products-grid" *ngIf="products().length > 0">
+  <div class="product-card" *ngFor="let p of products()">
+    <img [src]="p.imageUrl || 'images/placeholder.jpg'" alt="{{ p.name }}">
+    <h3>{{ p.name }}</h3>
+    <p class="price">{{ p.price | currency:'EUR' }}</p>
+    <div class="actions">
+      <a [routerLink]="['/products', p.sku]" class="btn btn-details">Details</a>
+      <button class="btn btn-add" (click)="addToCart(p)">
+        Add to Cart 🛒
+      </button>
+    </div>
+  </div>
+</div>

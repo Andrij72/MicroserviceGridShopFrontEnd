@@ -1,1 +1,18 @@
-<p>home works!</p>
+<div class="welcome-page">
+  <h1>Welcome to MicroserviceGrid!</h1>
+  <p>Discover the latest products of 2026.</p>
+
+  <div *ngIf="!isAuthenticated()">
+    <button  class="btn-primary" (click)="start()">
+      Log or Register to Start →
+    </button>
+  </div>
+
+  <div *ngIf="isAuthenticated()">
+    <button routerLink="/products" class="btn-primary">Go to Products</button>
+  </div>
+
+  <p>
+    You have {{ cartCount() }} product(s) in your cart (not paid).
+  </p>
+</div>

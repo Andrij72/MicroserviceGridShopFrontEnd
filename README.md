@@ -3,13 +3,25 @@
 **MicroserviceGridShopFrontend** is the frontend application of the **Microservice Grid** ecosystem.  
 This Angular-based client communicates with the API Gateway and backend microservices to deliver a modular and scalable shopping interface.
 
+
+# Admin Panel for E-Commerce Platform
+
+![Angular](https://img.shields.io/badge/Angular-20-red?logo=angular)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Docker](https://img.shields.io/badge/Docker-Ready-0db7ed?logo=docker)
+![Microservices](https://img.shields.io/badge/Architecture-Microservices-green)
+![Spring](https://img.shields.io/badge/Backend-Spring%20Boot-brightgreen?logo=spring)
+
+Admin panel for managing products, orders and users.  
+Built with Angular 20 and designed to work with a microservice backend architecture.
+
 ---
 
 ## 🚀 Features
 
 - Product catalog fetched from **Product Service**
 - Inventory availability from **Inventory Service**
-- Order creation through **Order Service**
+- OrderService creation through **OrderService Service**
 - Secure integration via **API Gateway**
 - Angular 20 standalone architecture
 - Modular structure prepared for future expansion (Cart, Auth, Payments, Admin Panel)
@@ -30,21 +42,99 @@ This Angular-based client communicates with the API Gateway and backend microser
 
 ## 📦 Project Structure
 ```yml
+  public/
+  ├── favicon.ico
+  └── images/
+  └── placeholder.jpg
+
   src/
-  ├── app/
-  │ ├── core/
-  │ ├── shared/
-  │ ├── features/
-  │ │ ├── products/
-  │ │ ├── orders/
-  │ │ └── inventory/
-  │ └── app.routes.ts
-  ├── assets/
-  └── environments/
+  ├── index.html
+  ├── main.ts
+  ├── styles.scss
+  └── app/
+  ├── app.config.ts
+  ├── app.html
+  ├── app.routes.ts
+  ├── app.scss
+  ├── app.ts
+
+  ├── core/
+  │   ├── auth/
+  │   │   ├── auth.config.ts
+  │   │   └── auth.interceptor.ts
+  │   └── header/
+  │       ├── header.component.html
+  │       ├── header.component.scss
+  │       └── header.component.ts
+
+  ├── order/
+  │   ├── order.routes.ts
+  │   ├── data-access/
+  │   │   ├── cart.service.ts
+  │   │   └── order.service.ts
+  │   ├── feature-cart/
+  │   │   ├── cart.component.html
+  │   │   ├── cart.component.scss
+  │   │   └── cart.component.ts
+  │   ├── feature-orders/
+  │   │   ├── orders.component.html
+  │   │   ├── orders.component.scss
+  │   │   └── orders.component.ts
+  │   └── model/
+  │       ├── cart-item.model.ts
+  │       ├── order-create.request.ts
+  │       └── order.model.ts
+
+  ├── pages/
+  │   ├── admin/
+  │   │   ├── admin.html
+  │   │   ├── admin.scss
+  │   │   └── admin.ts
+  │   └── home/
+  │       ├── home.html
+  │       ├── home.scss
+  │       └── home.ts
+
+  └── product/
+  ├── product.routes.ts
+  ├── data-access/
+  │   └── admin-product.service.ts
+  ├── feature-details/
+  │   ├── product-details.component.html
+  │   ├── product-details.component.scss
+  │   └── product-details.component.ts
+  ├── feature-list/
+  │   ├── product-list.component.html
+  │   ├── product-list.component.scss
+  │   └── product-list.component.ts
+  └── model/
+  └── admin-product.model.ts
+
 ```
 
 ---
+## 📸 Screenshots
+### Client Dashboard
+![List products](screenshots/client-products-grid.png)
 
+#### Home
+![Home](screenshots/home-grid.png)
+
+#### Home
+![Login](screenshots/login-grid.png)
+
+#### Client Cart 
+![Client Cart](screenshots/client-cart-grid.png)
+
+### Admin Dashboard
+#### Product List (Grid View)
+![Products](screenshots/products-grid.png)
+
+#### Product Edit Form
+![Edit Product](screenshots/products-edit.png)
+
+
+---
 ## ⚙️ Development Setup
 
 ### 1. Install dependencies

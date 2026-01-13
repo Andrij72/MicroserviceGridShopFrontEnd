@@ -1,0 +1,8 @@
+<div *ngIf="product$ | async as product" class="card">
+  <img [src]="product.imageUrl || 'images/placeholder.jpg'" alt="{{ product.name }}">
+  <h2>{{ product.name }}</h2>
+  <p>{{ product.description }}</p>
+  <strong>{{ product.price | currency:'EUR' }}</strong>
+
+  <button (click)="addToCart(product)">Add to Cart 🛒</button>
+</div>

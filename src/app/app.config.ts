@@ -1,12 +1,17 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/auth/auth.interceptor';
+import { AuthModule } from 'angular-auth-oidc-client';
+import {appRoutes} from './app.routes';
+import {provideRouter} from '@angular/router';
+import {authConfig} from './core/auth/auth.config';
 
-import { routes } from './app.routes';
-
-export const appConfig: ApplicationConfig = {
+export let appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
-  ]
+    provideRouter(appRoutes),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    ...AuthModule.forRoot({
+      config: authConfig
+    }).providers ?? []
+  ],
 };

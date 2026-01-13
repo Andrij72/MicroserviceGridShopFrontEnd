@@ -1,0 +1,15 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: microservice-grid-frontend
+    ports:
+      - "4200:80"
+    networks:
+      - microservices-net
+    depends_on:
+      - api-gateway
+      - product-service
+      - order-service
+      - inventory-service

@@ -1,11 +1,33 @@
-import { Component } from '@angular/core';
+import {Component, computed, inject} from '@angular/core';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {map} from 'rxjs';
+import {RouterLink} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {CartService} from '../../features/cart/data-access/cart.service';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
   templateUrl: './home.html',
-  styleUrl: './home.scss',
+  styleUrls: ['./home.scss'],
+  imports: [RouterLink, CommonModule]
 })
 export class Home {
+  private readonly cartService = inject(CartService);
+  private readonly oidcService = inject(OidcSecurityService);
+
+  isAuthenticated = toSignal(
+    this.oidcService.isAuthenticated$.pipe(map(d => d.isAuthenticated)),
+    { initialValue: false }
+  );
+
+  cartCount = computed(() =>
+    this.cartService.cart().reduce((sum, item) => sum + item.quantity, 0)
+  );
+
+  start() {
+    this.oidcService.authorize();
+  }
 
 }
