@@ -42,7 +42,7 @@ export const appRoutes: Routes = [
 
   {
     path: 'admin',
-    component: AdminLayoutComponent,  // Адмін-лейаут без шапки
+    component: AdminLayoutComponent,
     loadChildren: () =>
       import('./pages/admin/admin.routes').then(m => {
         console.log('Loading Admin Routes');

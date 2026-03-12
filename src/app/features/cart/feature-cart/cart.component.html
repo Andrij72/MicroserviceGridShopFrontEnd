@@ -41,7 +41,7 @@
     <div class="cart-item" *ngFor="let item of cart()">
 
       <img
-        [src]="item.product.image || '/images/placeholder.jpg'"
+        [src]="item.product.imageUrl || 'images/placeholder.jpg'"
         alt="{{ item.product.name }}"
       >
 

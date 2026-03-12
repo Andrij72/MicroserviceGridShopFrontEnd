@@ -26,7 +26,6 @@ export const ADMIN_ROUTES: Routes = [
       //   path: 'orders',
       //   loadComponent: () => import('./orders/pages/order-list/order-list.component').then(m => m.OrderListComponent)
       // },
-
       // {
       //   path: 'users',
       //   loadComponent: () => import('./users/pages/user-list/user-list.component').then(m => m.UserListComponent)
