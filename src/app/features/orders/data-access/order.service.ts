@@ -31,7 +31,7 @@ export class OrderService {
     const order = {
       items: items.map(i => ({
         sku: i.product.sku,
-        name: i.product.name,
+        productName: i.product.name,
         price: i.product.price,
         quantity: i.quantity
       })),

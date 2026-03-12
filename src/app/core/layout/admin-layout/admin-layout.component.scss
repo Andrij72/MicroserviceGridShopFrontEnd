@@ -28,7 +28,7 @@
         }
 
         &.active {
-          background-color: #003c63; /* Active link color */
+          background-color: #003c63;
         }
       }
     }
@@ -39,7 +39,6 @@
     padding: 1rem;
     background-color: #f7f7f7;
 
-    /* Optional: Add a shadow to the right side of the sidebar */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
 }

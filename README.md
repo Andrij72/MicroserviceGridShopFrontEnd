@@ -41,90 +41,120 @@ Built with Angular 20 and designed to work with a microservice backend architect
 ---
 
 ## 📦 Project Structure
-```yml
-  public/
-  ├── favicon.ico
-  └── images/
-  └── placeholder.jpg
-
-  src/
-  ├── index.html
-  ├── main.ts
-  ├── styles.scss
-  └── app/
-  ├── app.config.ts
-  ├── app.html
-  ├── app.routes.ts
-  ├── app.scss
-  ├── app.ts
-
-  ├── core/
-  │   ├── auth/
-  │   │   ├── auth.config.ts
-  │   │   └── auth.interceptor.ts
-  │   └── header/
-  │       ├── header.component.html
-  │       ├── header.component.scss
-  │       └── header.component.ts
-
-  ├── order/
-  │   ├── order.routes.ts
-  │   ├── data-access/
-  │   │   ├── cart.service.ts
-  │   │   └── order.service.ts
-  │   ├── feature-cart/
-  │   │   ├── cart.component.html
-  │   │   ├── cart.component.scss
-  │   │   └── cart.component.ts
-  │   ├── feature-orders/
-  │   │   ├── orders.component.html
-  │   │   ├── orders.component.scss
-  │   │   └── orders.component.ts
-  │   └── model/
-  │       ├── cart-item.model.ts
-  │       ├── order-create.request.ts
-  │       └── order.model.ts
-
-  ├── pages/
-  │   ├── admin/
-  │   │   ├── admin.html
-  │   │   ├── admin.scss
-  │   │   └── admin.ts
-  │   └── home/
-  │       ├── home.html
-  │       ├── home.scss
-  │       └── home.ts
-
-  └── product/
-  ├── product.routes.ts
-  ├── data-access/
-  │   └── admin-product.service.ts
-  ├── feature-details/
-  │   ├── product-details.component.html
-  │   ├── product-details.component.scss
-  │   └── product-details.component.ts
-  ├── feature-list/
-  │   ├── product-list.component.html
-  │   ├── product-list.component.scss
-  │   └── product-list.component.ts
-  └── model/
-  └── admin-product.model.ts
-
+```text
+src/
+  app/
+    core/
+      auth/
+        auth.config.ts
+        auth.interceptor.ts
+      header/
+        header.component.html
+        header.component.scss
+        header.component.ts
+    order/
+      data-access/
+        cart.service.ts
+        order.service.ts
+      feature-cart/
+        cart.component.html
+        cart.component.scss
+        cart.component.ts
+      feature-orders/
+        orders.component.html
+        orders.component.scss
+        orders.component.ts
+      model/
+        cart-item.model.ts
+        order-create.request.ts
+        order.model.ts
+    product/
+      data-access/
+        admin-product.service.ts
+      feature-list/
+        product-list.component.html
+        product-list.component.scss
+        product-list.component.ts
+      feature-details/
+        product-details.component.html
+        product-details.component.scss
+        product-details.component.ts
+      model/
+        admin-product.model.ts
+    pages/
+      admin/
+      home/
 ```
 
 ---
+## 🔌 API Integration
+
+| Endpoint          | Method | Description              |
+|-------------------|--------|--------------------------|
+| /api/v1/products  | GET    | Fetch all products       |
+| /api/v1/inventory | GET    | Check stock availability |
+| /api/v1/orders    | POST   | Create order  <br/>      | 
+
+**Order Payload Example**
+```json
+{
+  "items": [
+    {
+      "sku": "iphone-15",
+      "productName": "iPhone 15",
+      "price": 999,
+      "quantity": 1
+    }
+  ],
+  "userDetails": {
+    "email": "user@test.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+```
+---
+
+## 📈 User Flow / Architecture Diagram
+
+```mermaid
+flowchart TD
+    User -->|Interacts with| Frontend[Angular Frontend - Products Cart Orders]
+    Frontend -->|Calls API| Gateway[API Gateway]
+
+    subgraph Microservices["Microservice Grid"]
+        Product[Product Service]
+        Inventory[Inventory Service]
+        Order[Order Service]
+    end
+    
+    Gateway --> Product
+    Gateway --> Inventory
+    Gateway --> Order
+```
+
+---
+ 
+
 ## 📸 Screenshots
-### Client Dashboard
-![List products](screenshots/client-products-grid.png)
 
 #### Home
 ![Home](screenshots/home-grid.png)
 
-#### Home
+#### Login
 ![Login](screenshots/login-grid.png)
+
+### Client Dashboard
+![List products](screenshots/client-products-grid.png)
+
+### Product details
+![List products](screenshots/details-products-grid.png)
 
 #### Client Cart 
 ![Client Cart](screenshots/client-cart-grid.png)
+
+#### Create order
+![Create Order](screenshots/create-order-grid.png)
 
 ### Admin Dashboard
 #### Product List (Grid View)
@@ -133,6 +163,8 @@ Built with Angular 20 and designed to work with a microservice backend architect
 #### Product Edit Form
 ![Edit Product](screenshots/products-edit.png)
 
+#### Create new Product Form
+![Edit Product](screenshots/admin-create-new-product-grid.png)
 
 ---
 ## ⚙️ Development Setup
